@@ -1,0 +1,43 @@
+{
+    "preset": "psr12",
+    "notPath": [
+        "app/Exceptions/Handler.php",
+        "app/Http/Kernel.php"
+    ],
+    "rules": {
+        "declare_strict_types": true,
+        "array_indentation": false,
+        "no_unused_imports": true,
+        "array_syntax": {
+            "syntax": "short"
+        },
+        "binary_operator_spaces": {
+            "default": "single_space",
+            "operators": {
+                "=>": null
+            }
+        },
+        "blank_line_after_namespace": true,
+        "blank_line_after_opening_tag": true,
+        "blank_line_before_statement": {
+            "statements": [
+                "return"
+            ]
+        },
+        "braces": true,
+        "cast_spaces": true,
+        "class_attributes_separation": {
+            "elements": {
+                "const": "one",
+                "method": "one",
+                "property": "one",
+                "trait_import": "none"
+            }
+        },
+        "class_definition": {
+            "multi_line_extends_each_single_line": true,
+            "single_item_single_line": true,
+            "single_line": true
+        }
+    }
+}
