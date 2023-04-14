@@ -8,7 +8,7 @@ use Exception;
 
 class ClassGenerator
 {
-    public function generate(string $file_path, string $stub_path, string $content = '')
+    public function generate(string $file_path, string $stub_path, string $content = '', string $returnType = '')
     {
         $path = $this->qualifyPath($file_path);
         if (!$path) {
@@ -16,7 +16,7 @@ class ClassGenerator
         }
 
         $this->makeDirectory($path);
-        file_put_contents($path, $this->buildClass($path, $stub_path, $content));
+        file_put_contents($path, $this->buildClass($path, $stub_path, $content, $returnType));
 
         return $path;
     }
@@ -64,27 +64,45 @@ class ClassGenerator
         return $path;
     }
 
-    protected function buildClass(string $class, string $stub, string $content = ''): string
+    protected function buildClass(string $class, string $stub, string $content = '', string $returnType = ''): string
     {
         $stub = file_get_contents($this->getStub($stub));
+
         $this->replaceNamespace($stub, $class);
         $this->replaceClassName($stub, $class);
         $this->replaceContent($stub, $class, $content);
+        $this->replaceReturnType($stub, $class, $returnType);
 
         return $stub;
     }
 
-    public function replacePlaceholder(string &$stub, string $class, string $action, array $placeholders, string $content = ''): self
+    public function replacePlaceholder(string &$stub, string $class, string $action, array $placeholders, string $content = '', string $returnType = ''): self
     {
         foreach ($placeholders as $search) {
             $stub = str_replace(
                 $search,
-                [$this->$action($class, $content)],
+                [$this->$action($class, $content, $returnType)],
                 $stub
             );
         }
 
         return $this;
+    }
+
+    protected function replaceReturnType(string &$stub, string $class, string $returnType)
+    {
+        $searches = [
+            ['{{ returnType }}', '{{returnType}}']
+        ];
+
+        $this->replacePlaceholder(
+            $stub,
+            $class,
+            'getReturnType',
+            $searches,
+            '',
+            $returnType
+        );
     }
 
     protected function replaceContent(string &$stub, string $class, string $content): void
@@ -112,6 +130,11 @@ class ClassGenerator
         ];
 
         $this->replacePlaceholder($stub, $class, 'getClassName', $searches);
+    }
+
+    protected function getReturnType(string $class, string $content, string $type): string
+    {
+        return $type;
     }
 
     public function getContent(string $class, string $content): string

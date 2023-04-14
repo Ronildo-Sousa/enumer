@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Src\Enumer;
 use Src\Generator\ClassGenerator;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -13,12 +14,15 @@ $e = (new ClassGenerator());
 // $path = $e->getPath($name);
 // $e->makeDirectory($path);
 // file_put_contents($path, $e->buildClass($name));
+$json = '{"Hearts": "H", "Diamonds": "D", "Clubs": "C", "Spades": "S"}';
 var_dump(
     // getcwd()
-    $e->generate(
-        __DIR__ . '/src/Action.php',
-        __DIR__ . '/src/stubs/class.stub'
-    )
+    // $e->generate(
+    //     __DIR__ . '/src/Action.php',
+    //     __DIR__ . '/src/stubs/class.stub'
+    // )
+    // (new Enumer)->convert($json, 'src/')
+    (new Enumer)->convert($json, 'src/teste.php', 'int')
     // $name,
     // $path,
     // str_starts_with(__FILE__ . '/temp/classes/MyClass.php', getcwd())
