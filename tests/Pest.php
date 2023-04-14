@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+define("TEMP_DIRECTORY", __DIR__ . '/temp');
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -41,7 +43,28 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function removeTempDirectory(): void
 {
-    // ..
+    removeDirectory(TEMP_DIRECTORY);
+}
+
+function removeDirectory(string $dir): void
+{
+    if (is_dir($dir)) {
+        $objects = scandir($dir);
+
+        foreach ($objects as $object) {
+            if ($object !== "." && $object !== "..") {
+                if (filetype($dir . "/" . $object) == "dir") {
+                    removeDirectory($dir . "/" . $object);
+                } else {
+                    unlink($dir . "/" . $object);
+                }
+            }
+        }
+
+        reset($objects);
+
+        rmdir($dir);
+    }
 }
