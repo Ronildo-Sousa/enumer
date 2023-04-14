@@ -16,8 +16,8 @@ $e = (new ClassGenerator());
 var_dump(
     // getcwd()
     $e->generate(
-        __DIR__ . '/src/temp/teste.php',
-        __DIR__ . '/src/stubs/Enum.stub'
+        __DIR__ . '/src/Action.php',
+        __DIR__ . '/src/stubs/class.stub'
     )
     // $name,
     // $path,
