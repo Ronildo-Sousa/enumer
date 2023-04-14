@@ -4,9 +4,15 @@ declare(strict_types=1);
 
 use Src\Generator\ClassGenerator;
 
+use function PHPUnit\Framework\assertContains;
+
 afterEach(fn () => removeTempDirectory());
 
-it('should generate a class based on a stub', function (string $file_path, string $stub_path, string $file_type) {
+it('should generate a class based on a stub', function (
+    string $file_path,
+    string $stub_path,
+    string $file_type,
+) {
     $classGenerator = new ClassGenerator();
     $newClass = $classGenerator->generate($file_path, $stub_path);
 
@@ -32,6 +38,6 @@ it('should generate a class based on a stub', function (string $file_path, strin
     [
         TEMP_DIRECTORY . '/Interfaces/MyInterface.php',
         __DIR__ . '/../../src/stubs/interface.stub',
-        'interface',
+        'interface'
     ],
 ]);
