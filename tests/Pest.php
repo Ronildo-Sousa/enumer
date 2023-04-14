@@ -43,12 +43,7 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function removeTempDirectory(): void
-{
-    removeDirectory(TEMP_DIRECTORY);
-}
-
-function removeDirectory(string $dir): void
+function removeTempFiles(string $dir = TEMP_DIRECTORY): void
 {
     if (is_dir($dir)) {
         $objects = scandir($dir);
@@ -56,7 +51,7 @@ function removeDirectory(string $dir): void
         foreach ($objects as $object) {
             if ($object !== "." && $object !== "..") {
                 if (filetype($dir . "/" . $object) == "dir") {
-                    removeDirectory($dir . "/" . $object);
+                    removeTempFiles($dir . "/" . $object);
                 } else {
                     unlink($dir . "/" . $object);
                 }
@@ -64,7 +59,5 @@ function removeDirectory(string $dir): void
         }
 
         reset($objects);
-
-        rmdir($dir);
     }
 }

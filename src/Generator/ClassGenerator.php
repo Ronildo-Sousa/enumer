@@ -8,7 +8,7 @@ use Exception;
 
 class ClassGenerator
 {
-    public function generate(string $file_path, string $stub_path, string $content = '', string $returnType = '')
+    public function generate(string $file_path, string $stub_path, string $content = '', string $returnType = 'string')
     {
         $path = $this->qualifyPath($file_path);
         if (!$path) {

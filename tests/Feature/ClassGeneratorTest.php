@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 use Src\Generator\ClassGenerator;
 
-use function PHPUnit\Framework\assertContains;
-
-afterEach(fn () => removeTempDirectory());
+afterEach(fn () => removeTempFiles());
 
 it('should generate a class based on a stub', function (
     string $file_path,
