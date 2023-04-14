@@ -20,6 +20,10 @@ class Enumer extends ClassGenerator
 
         $content = '';
         foreach ($cases as $key => $value) {
+            if ($returnType === 'string') {
+                $content .= 'case ' . mb_convert_case($key, MB_CASE_TITLE) . ' = ' . '"' . $value . '"' . ';';
+                continue;
+            }
             $content .= 'case ' . mb_convert_case($key, MB_CASE_TITLE) . ' = ' . $value . ';';
         }
 
