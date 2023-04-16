@@ -21,7 +21,7 @@ class ClassGenerator
         return $path;
     }
 
-    protected function qualifyPath(string $rawName): string
+    protected function qualifyPath(string $rawName): ?string
     {
         $path = $this->qualifyClass($rawName);
 
@@ -152,10 +152,16 @@ class ClassGenerator
 
     public function getNamespace(string $class): string
     {
-        $namespace = str_replace('/', '\\', str_replace(getcwd(), '', $class));
-        $namespace = implode('\\', array_slice(explode('\\', $namespace), 1, -1));
+        $class = explode('/', str_replace($this->getDocumentRoot(), '', $class));
+        $class = array_slice($class, 1);
 
-        return ucfirst(trim($namespace, '\\')) . ';';
+        $size = count($class);
+        if ($size === 1) {
+            $class = ['App', $class[$size - 1]];
+        }
+
+        $namespace = implode('\\', array_slice($class, 0, -1));
+        return ucfirst($namespace) . ';';
     }
 
     public function getClassName(string $class): string

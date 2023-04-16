@@ -23,7 +23,7 @@ $json = '{"Hearts": "H", "Diamonds": "D", "Clubs": "C", "Spades": "S"}';
 //     }
 // ]';
 $enumer = new Enumer();
-$a = $enumer->convertJson($json, 'src/teste.php');
+$a = $enumer->convertJson($json, 'teste.php');
 // $namespace = $enumer->getNamespace($a);
 // $name = $enumer->getClassName($a);
 // $enum = '\\' . str_replace(';', '', $namespace) . '\\' . $name;
