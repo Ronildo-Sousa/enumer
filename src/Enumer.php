@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Src;
+namespace RonildoSousa;
 
 use Exception;
-use Src\Generator\ClassGenerator;
+use RonildoSousa\Generator\ClassGenerator;
 
 class Enumer extends ClassGenerator
 {

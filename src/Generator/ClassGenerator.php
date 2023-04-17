@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Generator;
+namespace RonildoSousa\Generator;
 
 use Exception;
 
@@ -155,13 +155,18 @@ class ClassGenerator
         $class = explode('/', str_replace($this->getDocumentRoot(), '', $class));
         $class = array_slice($class, 1);
 
+        if (str_contains($this->getDocumentRoot(), '/php/enumer')) {
+            array_unshift($class, $this->getComposerNamespace());
+        }
+
         $size = count($class);
         if ($size === 1) {
-            $class = ['App', $class[$size - 1]];
+            array_unshift($class, $this->getComposerNamespace());
         }
 
         $namespace = implode('\\', array_slice($class, 0, -1));
-        return ucfirst($namespace) . ';';
+
+        return $namespace . ';';
     }
 
     public function getClassName(string $class): string
@@ -169,5 +174,12 @@ class ClassGenerator
         $name = str_replace('.php', '', array_slice(explode('/', $class), -1));
 
         return implode($name);
+    }
+
+    private function getComposerNamespace(): string
+    {
+        $composer = json_decode(file_get_contents($this->getDocumentRoot() . '/composer.json'), true);
+
+        return trim(key($composer['autoload']['psr-4']), '\\/');
     }
 }

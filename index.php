@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Src\Enumer;
+use RonildoSousa\Enumer;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -23,11 +23,13 @@ $json = '{"Hearts": "H", "Diamonds": "D", "Clubs": "C", "Spades": "S"}';
 //     }
 // ]';
 $enumer = new Enumer();
-$a = $enumer->convertJson($json, 'teste.php');
-// $namespace = $enumer->getNamespace($a);
-// $name = $enumer->getClassName($a);
-// $enum = '\\' . str_replace(';', '', $namespace) . '\\' . $name;
+// $enum_path = $enumer->convertJson($json, __DIR__ . '/tests/temp/Enums/teste.php');
+// $enum_path = __DIR__ . '/tests/temp/Enums/teste.php';
+// $namespace = $enumer->getNamespace($enum_path);
+// $name = $enumer->getClassName($enum_path);
+
+// $enum =  str_replace(';', '', $namespace) . '\\' . $name;
 
 // var_dump(
-
+//     $enum::cases()
 // );

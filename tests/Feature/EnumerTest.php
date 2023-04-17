@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Src\Enumer;
+use RonildoSousa\Enumer;
 
 beforeEach(function () {
     $this->simpleJson = '{"Hearts": "H", "Diamonds": "D", "Clubs": "C", "Spades": "S"}';
@@ -31,22 +31,22 @@ it('should convert a simple json into a PHP enum', function () {
     $name = $enumer->getClassName($enum_path);
     $enum_content = file_get_contents($enum_path);
 
-    $enum = '\\' . str_replace(';', '', $namespace) . '\\' . $name;
+    $enum = str_replace(';', '', $namespace) . '\\' . $name;
     $cases = $enum::cases();
     $tryFrom = $enum::tryFrom('S');
 
     expect($enum_path)
-      ->toBeFile()
-      ->and($enum_content)
-      ->toContain('enum', $namespace, $name)
-      ->and($cases)
-      ->toBeArray()
-      ->and($cases[0]->name)
-      ->toContain('Hearts')
-      ->and($cases[0]->value)
-      ->toContain('H')
-      ->and($tryFrom->name)
-      ->toBe('Spades');
+        ->toBeFile()
+        ->and($enum_content)
+        ->toContain('enum', $namespace, $name)
+        ->and($cases)
+        ->toBeArray()
+        ->and($cases[0]->name)
+        ->toContain('Hearts')
+        ->and($cases[0]->value)
+        ->toContain('H')
+        ->and($tryFrom->name)
+        ->toBe('Spades');
 });
 
 it('should be able to convert a multi nivel json into a PHP enum', function () {
@@ -61,15 +61,15 @@ it('should be able to convert a multi nivel json into a PHP enum', function () {
     $tryFrom = $enum::tryFrom('MG');
 
     expect($enum_path)
-      ->toBeFile()
-      ->and($enum_content)
-      ->toContain('enum', $namespace, $name)
-      ->and($cases)
-      ->toBeArray()
-      ->and($cases[0]->name)
-      ->toContain('Rondonia')
-      ->and($cases[0]->value)
-      ->toContain('RO')
-      ->and($tryFrom->name)
-      ->toBe('MinasGerais');
+        ->toBeFile()
+        ->and($enum_content)
+        ->toContain('enum', $namespace, $name)
+        ->and($cases)
+        ->toBeArray()
+        ->and($cases[0]->name)
+        ->toContain('Rondonia')
+        ->and($cases[0]->value)
+        ->toContain('RO')
+        ->and($tryFrom->name)
+        ->toBe('MinasGerais');
 });

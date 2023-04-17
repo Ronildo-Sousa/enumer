@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Src\Generator\ClassGenerator;
+use RonildoSousa\Generator\ClassGenerator;
 
 afterEach(fn () => removeTempFiles());
 
